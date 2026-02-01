@@ -23,7 +23,9 @@ const { posts, limit = 3 } = Astro.props;
 
 const sortedPosts = posts
   .sort(
-    (a, b) => createLocalDate(b.frontmatter.pubDate).getTime() - createLocalDate(a.frontmatter.pubDate).getTime(),
+    (a, b) =>
+      createLocalDate(b.data.pubDate).getTime() -
+      createLocalDate(a.data.pubDate).getTime(),
   )
   .slice(0, limit);
 ---
@@ -33,13 +35,13 @@ const sortedPosts = posts
     {
       sortedPosts.map((post: any) => (
         <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={post.frontmatter.pubDate}
-          author={post.frontmatter.author}
-          image={post.frontmatter.image}
-          tags={post.frontmatter.tags}
+          url={`/posts/${post.id}`}
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          author={post.data.author}
+          image={post.data.image}
+          tags={post.data.tags}
         />
       ))
     }

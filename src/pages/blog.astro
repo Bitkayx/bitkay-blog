@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BlogPost from "../components/BlogPost.astro";
-const allPosts = Object.values(
-  import.meta.glob("../pages/posts/*.md", { eager: true }),
-);
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
 ---
 
 <Layout title="Blog">
@@ -19,13 +19,13 @@ const allPosts = Object.values(
       {
         allPosts.map((post: any) => (
           <BlogPost
-            url={post.url}
-            title={post.frontmatter.title}
-            description={post.frontmatter.description}
-            pubDate={post.frontmatter.pubDate}
-            author={post.frontmatter.author}
-            image={post.frontmatter.image}
-            tags={post.frontmatter.tags}
+            url={`/posts/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            author={post.data.author}
+            image={post.data.image}
+            tags={post.data.tags}
           />
         ))
       }
