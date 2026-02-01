@@ -1,0 +1,110 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
+
+const { title } = Astro.props;
+
+// Metadatos SEO dinámicos
+const siteName = "Bitkay";
+const defaultDescription = "Blog técnico sobre desarrollo web, frontend, React, Astro, TypeScript.";
+const siteUrl = "https://bitkay.com";
+const imageUrl = `${siteUrl}/images/og-image.jpg`;
+const twitterHandle = "@Bitkayx";
+
+// Determinar tipo de página basado en el título
+const isHomePage = title === "Bitkay";
+const isBlogPage = title.includes("Blog");
+const isAboutPage = title.includes("Acerca") || title.includes("About");
+
+const seoTitle = isHomePage ? siteName : `${title} | ${siteName}`;
+const seoDescription = title.includes("Bitkay") ? defaultDescription : `Artículo sobre ${title.replace(/ - Bitkay$/, '')} en el blog técnico de Bitkay`;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{seoTitle}</title>
+    <meta name="description" content={seoDescription} />
+    <meta name="keywords" content="desarrollo web, frontend, React, Astro, TypeScript, JavaScript, Web Components, sistemas bancarios, CSS, HTML, Node.js, Python, desarrollo de software, programación" />
+    <meta name="author" content="Jhonatan Elias García Ortega" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:description" content={seoDescription} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={seoTitle} />
+    <meta property="twitter:description" content={seoDescription} />
+    <meta property="twitter:image" content={imageUrl} />
+    <meta property="twitter:site" content={twitterHandle} />
+    <meta property="twitter:creator" content={twitterHandle} />
+
+    <!-- Additional SEO -->
+    <link rel="canonical" href={siteUrl} />
+    <meta name="theme-color" content="#475569" />
+    <meta name="msapplication-TileColor" content="#475569" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": isAboutPage ? "Person" : "WebSite",
+        "name": "Jhonatan Elias García Ortega",
+        "url": siteUrl,
+        "description": defaultDescription,
+        "jobTitle": isAboutPage ? "Fullstack Developer | Frontend Specialist" : undefined,
+        "knowsAbout": isAboutPage ? ["JavaScript", "React", "TypeScript", "Astro", "Web Components", "Node.js", "Python"] : undefined,
+        "worksFor": isAboutPage ? {
+          "@type": "Organization",
+          "name": "BBVA en México"
+        } : undefined,
+        "sameAs": isAboutPage ? [
+          "https://github.com/Bitkayx",
+          "https://twitter.com/Bitkayx"
+        ] : undefined,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": siteUrl
+        }
+      })}
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <ClientRouter />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="grow">
+      <slot />
+    </main>
+    <Footer />
+    <ScrollToTop />
+
+    <script>
+      import "../scripts/toggletheme.js";
+    </script>
+  </body>
+</html>

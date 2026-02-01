@@ -1,0 +1,66 @@
+---
+
+---
+
+<button
+  id="scroll-to-top"
+  aria-label="Subir al inicio de la página"
+  class="fixed bottom-6 right-6 w-14 h-14 bg-slate-600 hover:bg-slate-700 text-white rounded-full shadow-lg transition-all duration-300 transform translate-y-20 opacity-0 hover:scale-110 flex items-center justify-center z-40"
+>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="w-6 h-6"
+  >
+    <path d="m18 15-6-6-6 6"></path>
+  </svg>
+</button>
+
+<script>
+  function setupScrollButton() {
+    const scrollBtn = document.querySelector("#scroll-to-top");
+    if (!scrollBtn) return;
+
+    function handleScroll() {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.remove("translate-y-20", "opacity-0");
+        scrollBtn.classList.add("translate-y-0", "opacity-100");
+      } else {
+        scrollBtn.classList.add("translate-y-20", "opacity-0");
+        scrollBtn.classList.remove("translate-y-0", "opacity-100");
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    scrollBtn.addEventListener("click", scrollToTop);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+  }
+
+  function cleanup() {
+    const scrollBtn = document.querySelector("#scroll-to-top");
+    scrollBtn?.removeEventListener("click", scrollToTop);
+    window.removeEventListener("scroll", handleScroll);
+  }
+
+  setupScrollButton();
+
+  document.addEventListener("astro:page-load", setupScrollButton);
+  document.addEventListener("astro:after-swap", () => {
+    cleanup();
+    setTimeout(setupScrollButton, 100);
+  });
+</script>
+

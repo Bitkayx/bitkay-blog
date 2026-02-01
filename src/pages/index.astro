@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true }),
+);
+---
+
+<Layout title="Inicio">
+  <section class="hero-section py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl">
+        <div class="mb-8">
+          <h1 class="text-5xl font-light mb-4">
+            Hola, soy <span class="font-medium">Jhonatan Elias García</span>
+          </h1>
+          <p class="text-2xl text-slate-600 dark:text-slate-400 mb-4">
+            Fullstack Developer | Frontend Specialist
+          </p>
+          <p class="text-lg text-slate-500 dark:text-slate-500 italic mb-8">
+            "Coding with LoFi. Simple. Intentional. Software."
+          </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-4 mb-12">
+          <a
+            href="/about"
+            class="inline-flex items-center justify-center px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors duration-200 font-medium"
+          >
+            Conóceme
+            <svg
+              class="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a
+            href="/blog"
+            class="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 font-medium"
+          >
+            Ve mi blog
+            <svg
+              class="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <section class="latest-posts-section py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-3xl font-light text-slate-900 dark:text-slate-100">
+            Posts Recientes
+          </h2>
+          <a
+            href="/blog"
+            class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+          >
+            Ver todos →
+          </a>
+        </div>
+
+        <LatestPosts posts={allPosts} limit={3} />
+      </div>
+    </section>
+  </section>
+</Layout>

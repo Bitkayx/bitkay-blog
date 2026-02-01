@@ -1,0 +1,129 @@
+---
+
+---
+
+<div class="relative lg:hidden">
+  <button
+    aria-expanded="false"
+    aria-controls="main-menu"
+    id="menu"
+    class="lg:hidden p-2 text-slate-600 dark:text-slate-400 z-50"
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+    <span class="sr-only">Menu</span>
+  </button>
+
+  <button
+    id="close-menu"
+    class="hidden lg:hidden fixed top-4 right-4 z-70 p-3 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 shadow-lg hover:bg-slate-100 dark:hover:bg-slate-700"
+    aria-label="Cerrar menú"
+  >
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+</div>
+
+<script>
+  function toggle() {
+    const menu = document.querySelector("#main-menu");
+    const closeBtn = document.querySelector("#close-menu");
+    const menuBtn = document.querySelector("#menu");
+
+    const isOpen = menu?.classList.contains("hidden");
+
+    if (isOpen) {
+      menu?.classList.remove("hidden");
+      menu?.classList.add(
+        "fixed",
+        "inset-0",
+        "z-[60]",
+        "flex",
+        "flex-col",
+        "justify-center",
+        "items-center",
+        "bg-white",
+        "dark:bg-slate-900",
+      );
+      closeBtn?.classList.remove("hidden");
+      menuBtn?.setAttribute("aria-expanded", "true");
+    } else {
+      menu?.classList.add("hidden");
+      menu?.classList.remove(
+        "fixed",
+        "inset-0",
+        "z-[60]",
+        "flex",
+        "flex-col",
+        "justify-center",
+        "items-center",
+        "bg-white",
+        "dark:bg-slate-900",
+      );
+      closeBtn?.classList.add("hidden");
+      menuBtn?.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function handleClick(e: any) {
+    const menu = document.querySelector("#main-menu");
+    const closeBtn = document.querySelector("#close-menu");
+    const menuBtn = document.querySelector("#menu");
+
+    if (
+      menuBtn &&
+      closeBtn &&
+      !menuBtn.contains(e.target) &&
+      !closeBtn.contains(e.target) &&
+      !menu?.contains(e.target) &&
+      menuBtn.getAttribute("aria-expanded") === "true"
+    ) {
+      toggle();
+    }
+  }
+
+  function init() {
+    const menuBtn = document.querySelector("#menu");
+    const closeBtn = document.querySelector("#close-menu");
+
+    menuBtn?.addEventListener("click", toggle);
+    closeBtn?.addEventListener("click", toggle);
+    document.addEventListener("click", handleClick);
+  }
+
+  function cleanup() {
+    const menuBtn = document.querySelector("#menu");
+    const closeBtn = document.querySelector("#close-menu");
+
+    menuBtn?.removeEventListener("click", toggle);
+    closeBtn?.removeEventListener("click", toggle);
+    document.removeEventListener("click", handleClick);
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:after-swap", () => {
+    cleanup();
+    init();
+  });
+</script>
+

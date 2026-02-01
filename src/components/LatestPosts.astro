@@ -1,0 +1,47 @@
+---
+import BlogPost from "./BlogPost.astro";
+import { createLocalDate } from "../utils/dateUtils";
+
+interface Props {
+  posts: Array<{
+    url: string;
+    frontmatter: {
+      title: string;
+      description?: string;
+      pubDate: string;
+      image?: {
+        url: string;
+        alt?: string;
+      };
+      tags?: string[];
+    };
+  }>;
+  limit?: number;
+}
+
+const { posts, limit = 3 } = Astro.props;
+
+const sortedPosts = posts
+  .sort(
+    (a, b) => createLocalDate(b.frontmatter.pubDate).getTime() - createLocalDate(a.frontmatter.pubDate).getTime(),
+  )
+  .slice(0, limit);
+---
+
+<section class="w-full">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {
+      sortedPosts.map((post: any) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={post.frontmatter.pubDate}
+          author={post.frontmatter.author}
+          image={post.frontmatter.image}
+          tags={post.frontmatter.tags}
+        />
+      ))
+    }
+  </div>
+</section>

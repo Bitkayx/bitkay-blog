@@ -1,0 +1,91 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-700 antialiased;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80ch;
+    padding: 1rem;
+    line-height: 1.6;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-light text-slate-900;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl mb-6;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl mb-4;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl mb-3;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl mb-2;
+  }
+
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  a {
+    @apply text-slate-600 hover:text-slate-800 transition-colors duration-200;
+  }
+
+  /* Dark mode styles */
+  .dark body {
+    @apply bg-slate-900 text-slate-300;
+  }
+
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    @apply text-slate-100;
+  }
+
+  .dark a {
+    @apply text-slate-400 hover:text-slate-200;
+  }
+}
+
+@theme {
+  --color-accent: rgb(71 85 105);
+  /* slate-600 */
+  --color-text-primary: rgb(51 65 85);
+  /* slate-700 */
+  --color-text-secondary: rgb(100 116 139);
+  /* slate-500 */
+  --color-bg-primary: rgb(248 250 252);
+  /* slate-50 */
+  --color-bg-secondary: rgb(241 245 249);
+  /* slate-100 */
+}

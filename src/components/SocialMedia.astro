@@ -1,0 +1,12 @@
+---
+const { platform, username } = Astro.props;
+---
+
+<a
+  href={`https://www.${platform}.com/${username}`}
+  class="inline-flex items-center px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-300 dark:border-slate-600 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 no-underline"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <span class="capitalize">{platform}</span>
+</a>
