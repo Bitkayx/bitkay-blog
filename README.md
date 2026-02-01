@@ -58,7 +58,7 @@ Blog posts are written in Markdown and stored in `src/pages/posts/`. Each post s
 
 ## 🚀 Deployment
 
-Currently deployed at: <https://bitkay-blog.netlify.app>
+Currently deployed at: <https://bitkay-blog.vercel.app>
 
 ## 👤 About
 
