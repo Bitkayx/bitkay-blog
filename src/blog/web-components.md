@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: "Web Components en el uso práctico"
 author: "Bitkay"
 description: "Mi experiencia implementando Web Components, con ejemplos prácticos y lecciones aprendidas"

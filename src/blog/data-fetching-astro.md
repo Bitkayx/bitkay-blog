@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: "Data Fetching en Astro: SSR, SSG y Client-Side"
 author: "Bitkay"
 description: "Explorando las diferentes estrategias de data fetching en Astro y cuándo usar cada una"

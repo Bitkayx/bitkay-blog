@@ -1,17 +1,16 @@
 ---
 import Layout from "./Layout.astro";
 import { formatDate } from "../utils/dateUtils";
+import { getCollection } from "astro:content";
 const { frontmatter } = Astro.props;
 const { title, pubDate, description, author, image, tags } = frontmatter;
 
-const allPosts = Object.values(
-  import.meta.glob("../pages/posts/*.md", { eager: true }),
-);
+const allPosts = await getCollection("blog");
 
 const tagCounts: Record<string, number> = {};
 allPosts.forEach((post: any) => {
-  if (post.frontmatter.tags) {
-    post.frontmatter.tags.forEach((tag: string) => {
+  if (post.data.tags) {
+    post.data.tags.forEach((tag: string) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
   }
